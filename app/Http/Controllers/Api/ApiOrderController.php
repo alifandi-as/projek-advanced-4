@@ -30,6 +30,8 @@ class ApiOrderController extends ExtApiController
         return $this->send_success("Order id-$id: ", $order);
     }
 
+    // Menambah pesanan item berdasarkan parameter item
+    // (item(id, quantity))
     public function add(Request $request){
         $form_fields = $request->validate([
             'product_id' => 'required',
@@ -49,6 +51,8 @@ class ApiOrderController extends ExtApiController
     
     }
 
+    // Memesan 2 atau lebih item berdasarkan daftar pesanan
+    // (item[](id, quantity))
     public function multi_add(Request $request){
         $uid = auth()->id();
         foreach($request->items as $item){
@@ -68,6 +72,8 @@ class ApiOrderController extends ExtApiController
         return $this->send_success("Your orders have been processed.");
     }
 
+    // Mengubah pemesanan berdasarkan parameter item
+    // (item(id, quantity))
     public function edit(Request $request, $id = null){
         $query = Order::query()
         ->where("id", "=", $id);
@@ -84,6 +90,8 @@ class ApiOrderController extends ExtApiController
     
     }
 
+    // Mengubah 2 atau lebih pemesanan berdasarkan daftar item
+    // (item[](id, quantity))
     public function multi_edit(Request $request){
         $uid = auth()->id();
         foreach($request->items as $item){
@@ -102,6 +110,8 @@ class ApiOrderController extends ExtApiController
         return $this->send_success("Multiple edit complete.");
     }
 
+    // Mengubah jumlah pemesanan berdasarkan id
+    // (id)
     public function multi_edit_quantity(Request $request){
         $counter = 0;
         foreach($request->id as $id){

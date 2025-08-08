@@ -36,6 +36,8 @@ class ApiReviewController extends ExtApiController
         return $this->send_success("Menampilkan review ber-id $review_id:", $product);
     }
 
+    // Membuat review suatu produk berdasarkan request dan id
+    // (request, id)
     public function create(Request $request, int $product_id){
         
         if (empty(Review::where("product_id", "=", $product_id)
@@ -57,6 +59,8 @@ class ApiReviewController extends ExtApiController
         }
     }
 
+    // Menghapus review suatu produk berdasarkan id
+    // (id)
     public function remove(int $product_id){
         
         if (!empty(Review::where("product_id", "=", $product_id)
